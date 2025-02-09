@@ -1,0 +1,32 @@
+# Compilador
+CC = gcc
+
+# Opções de compilação
+CFLAGS = -Wall -Wextra -std=c99 -O2
+
+# Nome do executável
+TARGET = programa
+
+# Arquivos fonte
+SRCS = programa.c
+
+# Arquivos objeto (gerados a partir dos arquivos fonte)
+OBJS = $(SRCS:.c=.o)
+
+# Regra padrão (compila o programa)
+all: $(TARGET)
+
+# Regra para compilar o executável
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
+
+# Regra para compilar cada arquivo fonte em um arquivo objeto
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Regra para limpar os arquivos gerados
+clean:
+	rm -f $(OBJS) $(TARGET)
+
+# Regra para recompilar tudo
+rebuild: clean all
